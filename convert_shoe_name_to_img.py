@@ -18,11 +18,9 @@ def get_images_from_stockx(sneaker_name: str) -> bool:
             img_data = img_data.content
         else: 
             return False
-        
         with open(f'{sneaker_name}_#{i}.png', 'wb') as handler:
             handler.write(img_data)
     return True
-
 
 # Sample Usages
 # get_images_from_stockx("Timberland-6-Inch-Premium-Waterproof-Wheat")
