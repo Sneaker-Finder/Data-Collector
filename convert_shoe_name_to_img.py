@@ -5,7 +5,7 @@ def get_images_from_stockx(sneaker_name: str) -> bool:
     Given a 'sneaker_name' saves 36 images of it from StockX.
     Returns true if all 36 successfuly retrieved, false otherwise.
     
-    >>> 
+    >>> get_images_from_stockx("Timberland-6-Inch-Premium-Waterproof-Wheat")
     True
 
     """
