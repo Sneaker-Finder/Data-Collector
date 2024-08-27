@@ -1,15 +1,31 @@
 from selenium import webdriver 
 from selenium.webdriver.common.by import By
 import time
-
+import json
 driver = webdriver.Chrome()
-name = "hi"
-url = "https://www.google.com/search?q={name}&sca_esv=136c67f42ee830f9&udm=2&biw=2048&bih=512&sxsrf=ADLYWILlUCj2E4uW5TXbDhh9_ZaGQwUXzQ%3A1724771401282&ei=SezNZp3wELOhptQP9pLLuA4&ved=0ahUKEwjduMSVupWIAxWzkIkEHXbJEucQ4dUDCBA&uact=5&oq={name}&gs_lp=Egxnd3Mtd2l6LXNlcnAiKE5pa2UtU0ItRHVuay1Mb3ctQmVuLUplcnJ5cy1DaHVua3ktRHVua3lImAZQuANYuANwAXgAkAEAmAF4oAF4qgEDMC4xuAEDyAEA-AEC-AEBmAIBoAJIwgIEECMYJ8ICBBAAGB6YAwCIBgGSBwExoAct&sclient=gws-wiz-serp"
-driver.get(url)
-time.sleep(2)
-results = driver.find_elements(By.XPATH, '//img[@class="YQ4gaf"]')
 
-for result in results:
-    print(result.get_attribute('src'))
-    break
+google_class_name = "YQ4gaf"
+file = open('stockx_shoes.txt', 'r')
+shoes = []
+for line in file:
+    shoes.append(line.strip())
+file.close()
+
+
+img_data = {}
+for shoe in shoes:
+    img_data[shoe] = []
+    url = "https://www.google.com/search?q="+ shoe+ "&sca_esv=136c67f42ee830f9&udm=2&biw=2048&bih=512&sxsrf=ADLYWILlUCj2E4uW5TXbDhh9_ZaGQwUXzQ%3A1724771401282&ei=SezNZp3wELOhptQP9pLLuA4&ved=0ahUKEwjduMSVupWIAxWzkIkEHXbJEucQ4dUDCBA&uact=5&oq="+shoe+"&gs_lp=Egxnd3Mtd2l6LXNlcnAiKE5pa2UtU0ItRHVuay1Mb3ctQmVuLUplcnJ5cy1DaHVua3ktRHVua3lImAZQuANYuANwAXgAkAEAmAF4oAF4qgEDMC4xuAEDyAEA-AEC-AEBmAIBoAJIwgIEECMYJ8ICBBAAGB6YAwCIBgGSBwExoAct&sclient=gws-wiz-serp"
+    driver.get(url)
+    time.sleep(4)
+    results = driver.find_elements(By.XPATH, '//img[@class="YQ4gaf"]')
+
+    for result in results:
+        img_data[shoe].append(result.get_attribute('src'))
+    print(img_data[shoe])
+
+
+
+with open('shoe_img.json', 'w') as file:
+    json.dump(img_data, file)
 driver.quit()
