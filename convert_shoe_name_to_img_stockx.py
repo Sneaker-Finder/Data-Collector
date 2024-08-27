@@ -1,12 +1,8 @@
 import requests
-def get_images_from_stockx(sneaker_name: str) -> bool:
+def get_images_from_stockx(sneaker_name: str, save_image: bool) -> bool:
     """
-    Given a 'sneaker_name' saves 36 images of it from StockX.
+    Given a 'sneaker_name' saves 36 images of it from StockX if 'save_image' is true, no image saved otherwise.
     Returns true if all 36 successfuly retrieved, false otherwise.
-    
-    >>> get_images_from_stockx("Timberland-6-Inch-Premium-Waterproof-Wheat")
-    True
-
     """
     sneaker_name = '-'.join(word.capitalize() for word in sneaker_name.split('-'))
     for i in range(1, 37):
@@ -16,11 +12,12 @@ def get_images_from_stockx(sneaker_name: str) -> bool:
             img_data = img_data.content
         else: 
             return False
-        with open(f'{sneaker_name}_#{i}.png', 'wb') as handler:
-            handler.write(img_data)
+        if save_image:
+            with open(f'{sneaker_name}_#{i}.png', 'wb') as handler:
+                handler.write(img_data)
     return True
 
-# Sample Usages
+# Example Usage: 
 # get_images_from_stockx("Timberland-6-Inch-Premium-Waterproof-Wheat")
 # get_images_from_stockx("nike-dunk-low-miami-dolphins")
 # get_images_from_stockx("nike-Dunk-Low-concord")
