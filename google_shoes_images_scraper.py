@@ -22,7 +22,7 @@ def scrape_google_images_of_shoes_list(shoes_array: list[str])-> None:
             time.sleep(3)
             results = driver.find_elements(By.XPATH, '//img[@class="YQ4gaf"]')
             print(shoe)
-            for result in results:
+            for result in results[2:12]:
                 print(result.get_attribute('src'))
                 img_data[shoe].append(result.get_attribute('src'))
     except:
@@ -34,6 +34,7 @@ def scrape_google_images_of_shoes_list(shoes_array: list[str])-> None:
     driver.quit()
 
 # Example usage:
-# with open('static resources\stockx_format_shoes_list.txt', 'r') as shoe_names:
-#     shoes = [shoe.strip() for shoe in shoe_names]
-# scrape_google_images_of_shoes_list(shoes)
+with open('static resources/stockx_format_shoes_list.txt', 'r') as shoe_names:
+    shoes = [shoe.strip() for shoe in shoe_names]
+# single = ["Nike-Dunk-Low-Retro-White-Black-2021"]
+scrape_google_images_of_shoes_list(shoes)
