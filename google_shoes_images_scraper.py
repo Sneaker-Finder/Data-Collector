@@ -34,7 +34,7 @@ def scrape_google_images_of_shoes_list(shoes_array: list[str])-> None:
     driver.quit()
 
 # Example usage:
-with open('static resources/stockx_format_shoes_list.txt', 'r') as shoe_names:
-    shoes = [shoe.strip() for shoe in shoe_names]
+# with open('shoe_names/stockx_format_shoes_list.txt', 'r') as shoe_names:
+#     shoes = [shoe.strip() for shoe in shoe_names]
 # single = ["Nike-Dunk-Low-Retro-White-Black-2021"]
-scrape_google_images_of_shoes_list(shoes)
+# scrape_google_images_of_shoes_list(shoes)

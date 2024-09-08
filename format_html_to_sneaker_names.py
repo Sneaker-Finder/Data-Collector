@@ -14,7 +14,7 @@ def format_shoe_name(shoe_name,actual):
 
 def extract_shoe_names():
     shoe_names_array = []
-    for i in range (0,25):
+    for i in range (0,35):
         with open(f'stockx_pages/formatted ({i}).html', 'r') as file:
             contents = file.read()
             soup = BeautifulSoup(contents, 'html.parser')
@@ -62,7 +62,24 @@ def extracted_name_success_rate(shoes_array: list[str]) -> None:
     print("Success: " + str(success), "Fail: " + str(fail))
     print("Success Rate: " + str(success / (success + fail)))
 
+def valid_shoe_filter(shoes_array: list[str]) -> None:
+    """
+    Given a list of 'shoes_array' based on the shoe_names folder, filter all of the shoe
+    names which do not exist on the stockx website
+    """
+    with open("shoe_names/valid_shoe_names.txt", 'w') as new_shoe_file:
+        for shoe in shoes_array:
+            if get_images_from_stockx(shoe, False):
+                new_shoe_file.write(shoe+"\n")
+        
 # Example usages:
 # shoes_array = extract_shoe_names()
 # write_shoe_data(shoes_array, "stockx_format_shoes_list.txt")
-# extracted_name_success_rate(shoes_array)
+
+shoe_names = []
+with open("shoe_names/stockx_format_shoes_list.txt", 'r') as file:
+    for line in file.readlines():
+        shoe_names.append(line.strip())
+print(len(shoe_names))
+# valid_shoe_filter(shoe_names)
+# extracted_name_success_rate(shoe_names)
