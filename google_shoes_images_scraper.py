@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import json
+import base64
 
 def scrape_google_images_of_shoes_list(shoes_array: list[str])-> None:
     """
@@ -28,13 +29,16 @@ def scrape_google_images_of_shoes_list(shoes_array: list[str])-> None:
     except:
         print("error occured while retrieving images from google")
 
-
-    with open('shoe_img.json', 'w') as file:
-        json.dump(img_data, file)
+    shoe_url = (img_data[shoes_array[0]][1]).split(",")[1]
+    imgdata = base64.b64decode(shoe_url)
+    with open("test/image.jpg","wb") as f:
+        f.write(imgdata)
+    # with open('shoe_img.json', 'w') as file:
+    #     json.dump(img_data, file)
     driver.quit()
 
 # Example usage:
 # with open('shoe_names/stockx_format_shoes_list.txt', 'r') as shoe_names:
 #     shoes = [shoe.strip() for shoe in shoe_names]
-# single = ["Nike-Dunk-Low-Retro-White-Black-2021"]
-# scrape_google_images_of_shoes_list(shoes)
+single = ["Nike-Dunk-Low-Retro-White-Black-2021"]
+scrape_google_images_of_shoes_list(single)
